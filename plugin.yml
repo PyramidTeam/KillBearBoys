@@ -1,0 +1,7 @@
+name: KillBearBoys
+main: KillBearBoys\KillBearBoys
+version: 4.0
+api: 1.10.0
+load: STARTUP
+author: ljyloo
+description: Log block actions
