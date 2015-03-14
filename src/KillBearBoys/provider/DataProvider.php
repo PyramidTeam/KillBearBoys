@@ -2,16 +2,22 @@
 
 namespace KillBearBoys\provider;
 
-use pocketmine\level\Level;
+use pocketmine\block\Block;
+use pocketmine\Player;
 
 interface DataProvider{
-	public function getVersion();
+
+	public function getTime(Block $block);
 	
-	public function getCreatedTime();
+	public function getName(Block $block);
 	
-	public function getBlock(Level $world, $x, $y, $z);
+	public function getAction(Block $block);
 	
-	public function getBlockOfUser($user);
+	public function getLogs(Block $block);
+
+	public function putLogs(Player $player, Block $block, $action);
 	
-	public function getChat();
+	public function isBlockRecorded(Block $block);
+
+	public function close();
 }

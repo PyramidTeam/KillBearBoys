@@ -3,10 +3,8 @@
 namespace KillBearBoys\provider;
 
 use KillBearBoys\KillBearBoys;
-use pocketmine\event\player;
+
 use pocketmine\block\Block;
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
 
 class SQLite3DataProvider implements DataProvider{
 
@@ -24,29 +22,8 @@ class SQLite3DataProvider implements DataProvider{
         }else{
             $this->database = new \SQLite3($this->plugin->getDataFolder() . "logs.db", SQLITE3_OPEN_READWRITE);
         }
-        $this->insertPrepare = $this->database->prepare("INSERT INTO logs VALUES(:level, :x, :y, :z, :name, :blockId, :meta, :action, :time)");
-        $this->selectPrepare = $this->database->prepare("SELECT * FROM logs WHERE level = :level AND x = :x AND y = :y AND z = :z ORDER BY blockid DESC");
-    }
-
-    public function getVersion(){
-        //?what's this
-    }
-
-    public function getCreatedTime(){
-        //?
-    }
-
-    public function getBlock(Level $world, $x, $y, $z){
-        $vector3 = new Vector3($x, $y ,$z);
-        return $world->getBlock($vector3);
-    }
-
-    public function getBlockOfUser($user){
-        //?...
-    }
-
-    public function getChat(){
-        //...?
+        $this->insertPrepare = $this->database->prepare("INSERT INTO blocks VALUES(:level, :x, :y, :z, :name, :blockId, :meta, :action, :time)");
+        $this->selectPrepare = $this->database->prepare("SELECT * FROM blocks WHERE level = :level AND x = :x AND y = :y AND z = :z ORDER BY blockid DESC");
     }
 
     public function getTime(Block $block){
@@ -97,6 +74,10 @@ class SQLite3DataProvider implements DataProvider{
         $this->insertPrepare->bindValue(":action", $action, SQLITE3_INTEGER);
         $this->insertPrepare->bindValue(":time", time(), SQLITE3_INTEGER);
         $this->insertPrepare->execute();
+    }
+
+    public function isBlockRecorded(Block $block){
+        return $this->getLogs($block) != null;
     }
 
     public function close(){
