@@ -3,5 +3,10 @@ main: KillBearBoys\KillBearBoys
 version: 4.0
 api: 1.10.0
 load: STARTUP
-author: ljyloo
+author: ljyloo & MagicDroidX
 description: Log block actions
+
+commands:
+  co:
+    description: enable/disable query mode
+    usage: /co

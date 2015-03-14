@@ -11,6 +11,18 @@ CREATE TABLE kbb_block (
 	rolled_back INTEGER
 );
 
+CREATE TABLE logs(
+    level TEXT,
+    x INTEGER,
+    y INTEGER,
+    z INTEGER,
+    name TEXT,
+    blockid INTEGER,
+    meta INTEGER,
+    action INTEGER,
+    time INTEGER
+);
+
 CREATE INDEX block_index ON kbb_block ( 
     z,
     time,
